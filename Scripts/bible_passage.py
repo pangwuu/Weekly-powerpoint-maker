@@ -11,7 +11,12 @@ def remove_letters_in_brackets(text):
 def get_bible_verse(verse_reference):
     url = f"https://www.biblegateway.com/passage/?search={verse_reference}&version=NIV"
     
-    response = requests.get(url)
+    try:
+        response = requests.get(url)
+    except ConnectionError:
+        return "Could not connect to the api. Please check your internet connection"
+    
+
     soup = BeautifulSoup(response.content, 'html.parser')
     
     passage = soup.find("div", {"class": "passage-text"})
