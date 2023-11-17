@@ -2,9 +2,17 @@ import requests
 from bs4 import BeautifulSoup
 import pyperclip
 import re
+import types
+
+class NoTextFoundException(Exception):
+    def __init__(self, message="No text found in the file."):
+        self.message = message
+        super().__init__(self.message)
 
 def remove_letters_in_brackets(text):
     # Use regular expression to match text within both round and square brackets (single or double character) and remove them
+    if text is None:
+        raise NoTextFoundException()
     cleaned_text = re.sub(r'[\[\(][A-Za-z]{1,2}[\]\)]', '', text)
     cleaned_text = re.sub(r'\(\w{2}\)', '', cleaned_text)
     return cleaned_text
@@ -14,8 +22,8 @@ def get_bible_verse(verse_reference):
     
     try:
         response = requests.get(url)
-    except ConnectionError:
-        return "Could not connect to the api. Please check your internet connection"
+    except:
+        raise ConnectionError()
     
 
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -75,9 +83,29 @@ def split_verse_into_parts(verse_text, words_per_part=175, sentences_per_part = 
 
 
 def bible_passage():
-    verse_reference = input("Enter a Bible verse reference (e.g., '2 Peter 1:5-11'): ")
-    
-    verse_text = remove_letters_in_brackets(get_bible_verse(verse_reference))
+    while True:
+        verse_reference = input("Enter a Bible verse reference such as '2 Peter 1:5-11' (n to exit)\n")
+        
+        if verse_reference.lower().strip() == "n":
+            return
+        
+        try:
+            verse_text = remove_letters_in_brackets(get_bible_verse(verse_reference))
+            break
+        except NoTextFoundException:
+            go_again = input("No text found. Would you like to try again? (Y for yes, any other key to exit)\n")
+            if go_again.lower().strip() == "y":
+                continue
+            else:
+                return
+        except ConnectionError:
+            go_again = input("Could not connect to the API. Check your internet connection. Would you like to try again? (Y for yes, any other key to exit)\n")
+            if go_again.lower().strip() == "y":
+                continue
+            else:
+                return
+
+
     if verse_text:
         # Split the verse into 5-verse long parts
         parts = split_verse_into_parts(verse_text)
@@ -96,3 +124,5 @@ def split_bible_text(bible_text, verses_per_part=5):
     parts = [verses[i:i + verses_per_part] for i in range(0, len(verses), verses_per_part)]
     
     return parts
+
+bible_passage()

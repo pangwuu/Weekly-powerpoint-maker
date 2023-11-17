@@ -269,5 +269,3 @@ def find_and_open_songs():
                     else:
                         pyperclip.copy(ccli_description)
                         print("THIS IS A RANDOM CCLI LICENSE NUMBER. DO NOT USE")
-
-find_and_open_songs()

@@ -19,7 +19,6 @@ def find_ccli_info(song_name):
     pyperclip.copy(f"CCLI license number\n{ccli_number}")
     return f"CCLI license number\n{ccli_number}", False
 
-
 # csv_file = "/Users/johnnywu/Desktop/Weekly powerpoint maker/CCLI/ccli.csv"
 # user_input = "hosanna"  # Replace with the song name you're searching for
 
