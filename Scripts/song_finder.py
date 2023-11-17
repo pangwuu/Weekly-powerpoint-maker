@@ -106,22 +106,17 @@ def fetch_lyrics(song_name, artist):
             
             # Ask for confirmation if this is indeed the song you're looking for by getting the first 200 characters
             print(new_formatted_lyrics[:200])
-            keep_going = input("\nDoes the above sample look like what you're looking for? (Y to continue, Enter or 'e' to exit)\n")
+            keep_going = input("\nDoes the above sample look like what you're looking for? (Y to continue, Enter for blank lyrics, 'e' to exit)\n")
 
             # Check for exit condition
             if keep_going.lower().strip() == "e":
                 return ""
             
-            # Confirm the output directory and create it if it does not exist
-            output_directory = f"{root_directory}/Lyrics text files/"
-            if not os.path.exists(output_directory):
-                os.makedirs(output_directory)
-            
-            # Write into the file
-            with open(f"{root_directory}/lyrics text files/{song_name.replace('.pptx', '')}_Lyrics.txt", "w") as file:
-                file.write(new_formatted_lyrics)
-                
-            print("Lyrics saved to a text file.")
+            # # Confirm the output directory and create it if it does not exist
+            # output_directory = f"{root_directory}/Lyrics text files/"
+            # if not os.path.exists(output_directory):
+            #     os.makedirs(output_directory)
+        
 
             # Copy the template PowerPoint, and create a new one that has the song name.
             copy_powerpoint = input("Would you like to copy the template PowerPoint? (Y for yes, Enter or 'e' to exit)\n")
@@ -135,33 +130,52 @@ def fetch_lyrics(song_name, artist):
                 template_path = os.path.join(songs_directory, "Template - PLEASE COPY.pptx")
 
                 new_song_directory = os.path.join(songs_directory, song_name)
+                os.mkdir(new_song_directory)
+
+                text_file_path = f"{new_song_directory}/{song_name.replace('.pptx', '')}_Lyrics.txt"
+                # Write into the file
+                if keep_going == "":
+                    with open(text_file_path, "w") as file:
+                        # Make blank file if the user said so
+                        file.write()
+                else:
+                    with open(text_file_path, "w") as file:
+                        file.write(new_formatted_lyrics)
+                
+                print("Lyrics saved to the file.")
+
                 os.makedirs(new_song_directory, exist_ok=True)
                 new_song_path = os.path.join(new_song_directory, f"{song_name}.pptx")
 
                 shutil.copy(template_path, new_song_path)
                 print("PowerPoint file copied and renamed.")
                 
-                # Open the newly created PowerPoint file
+                # Open the newly created PowerPoint file and text file.
                 subprocess.run(["open", new_song_path])  # This is for macOS. Adjust for other platforms.
-            
-                # Open the text file
-                text_file_path = f"{root_directory}/lyrics text files/{song_name.replace('.pptx', '')}_Lyrics.txt"
                 subprocess.run(["open", text_file_path])  # This is for macOS. Adjust for other platforms.
 
                 # Search up the chords if you are making a new song!
-                keep_going = input("Would you like to find the chords for this song? (e to exit)\n")
-                if (keep_going.lower().strip()) == "e":
-                    return new_formatted_lyrics
+                while True:
+                    keep_going = input("Would you like to find the chords for this song? (Y for yes, e to exit)\n")
+                    if (keep_going.lower().strip()) == "e":
+                        return new_formatted_lyrics
+                    if (keep_going.lower().strip()) == "y":
+                        break
                 new_song_name = song_name + ' chords ultimate guitar'
                 search_url = f"https://www.google.com/search?q={new_song_name}"
                 webbrowser.open(search_url)
 
 
-            return new_formatted_lyrics
         else:
             return "Lyrics not available for this song."
     else:
         return "Lyrics not available for this song."
+
+def write_text_file(path_to_song_folder : str, lyrics : str, song_name : str):
+    extension = '.txt'
+    with open(os.join(path_to_song_folder, song_name), 'w') as f:
+        f.write(lyrics)
+
 
 def find_and_open_songs():
 
