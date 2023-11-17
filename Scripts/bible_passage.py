@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import pyperclip
 import re
-import types
 
 class NoTextFoundException(Exception):
     def __init__(self, message="No text found in the file."):
