@@ -13,10 +13,11 @@ def find_ccli_info(song_name):
             ccli_number = row[2].strip()
             if song_name.lower() in csv_song_name.lower():
                 pyperclip.copy(f"CCLI: {ccli_description}\n{ccli_number}")
-                return f"{ccli_description}\n{ccli_number}"
+                return f"CCLI: {ccli_description}\n{ccli_number}", True
     
-    pyperclip.copy(f"CCLI:\nCCLI Licence No.\n{random.randint(1000000, 9999999)}")
-    return f"CCLI Licence No.\n{random.randint(1000000, 9999999)}"
+    ccli_number = random.randint(0, 1000000)
+    pyperclip.copy(f"CCLI license number\n{ccli_number}")
+    return f"CCLI license number\n{ccli_number}", False
 
 
 # csv_file = "/Users/johnnywu/Desktop/Weekly powerpoint maker/CCLI/ccli.csv"

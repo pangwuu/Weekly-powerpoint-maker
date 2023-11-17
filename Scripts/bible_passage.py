@@ -6,6 +6,7 @@ import re
 def remove_letters_in_brackets(text):
     # Use regular expression to match text within both round and square brackets (single or double character) and remove them
     cleaned_text = re.sub(r'[\[\(][A-Za-z]{1,2}[\]\)]', '', text)
+    cleaned_text = re.sub(r'\(\w{2}\)', '', cleaned_text)
     return cleaned_text
 
 def get_bible_verse(verse_reference):
@@ -27,26 +28,48 @@ def get_bible_verse(verse_reference):
     else:
         return None
 
-def split_verse_into_parts(verse_text, words_per_part=175):
+def split_verse_into_parts(verse_text, words_per_part=175, sentences_per_part = 10):
     parts = []
+
+    verse_sentences = verse_text.split('.')
+    i = 0
+
+    for i in range(len(verse_sentences)):
+        try:
+            if (verse_sentences[i][-1] != '"'):
+                verse_sentences[i] = verse_sentences[i] + '.'
+        except:
+            pass
+        i += 1
     
-    verse_words = verse_text.split()  # Split the text into words
     current_part = []
-    word_count = 0
+    sentence_count = 0
+
+    for sentence in verse_sentences:
+        current_part.append(sentence)
+        sentence_count += 1
     
-    for word in verse_words:
-        current_part.append(word)
-        word_count += 1
-        
-        if word_count >= words_per_part:
+        if len(current_part) >= sentences_per_part:
             part = " ".join(current_part)
             parts.append(part)
             current_part = []
-            word_count = 0
+            sentence_count = 0
+    
+    
+    # for word in verse_words:
+    #     current_part.append(word)
+    #     word_count += 1
+        
+    #     if word_count >= words_per_part:
+    #         part = " ".join(current_part)
+    #         parts.append(part)
+    #         current_part = []
+    #         word_count = 0
     
     if current_part:
         part = " ".join(current_part)
         parts.append(part)
+    
     
     return parts
 
