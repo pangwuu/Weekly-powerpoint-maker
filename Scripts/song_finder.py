@@ -3,7 +3,7 @@ import ccli
 import pyperclip
 
 # Path to the root directory containing "Songs" and "Complete Slides" directories
-root_directory = "/Users/johnnywu/Desktop/Weekly powerpoint maker"
+root_directory = f"{os.path.dirname(__file__)}/../"
 
 # This ain't meant to be seen
 genius_token = "mfoyE4xeYy6XHR-TpI4icg-P4rH67lcKU47tXE-zWbb2XoOinj8KGAvkacUr0-Bt"
@@ -130,7 +130,7 @@ def fetch_lyrics(song_name, artist):
                 template_path = os.path.join(songs_directory, "Template - PLEASE COPY.pptx")
 
                 new_song_directory = os.path.join(songs_directory, song_name)
-                os.mkdir(new_song_directory)
+                os.makedirs(new_song_directory, exist_ok=True)
 
                 text_file_path = f"{new_song_directory}/{song_name.replace('.pptx', '')}_Lyrics.txt"
                 # Write into the file
@@ -144,7 +144,6 @@ def fetch_lyrics(song_name, artist):
                 
                 print("Lyrics saved to the file.")
 
-                os.makedirs(new_song_directory, exist_ok=True)
                 new_song_path = os.path.join(new_song_directory, f"{song_name}.pptx")
 
                 shutil.copy(template_path, new_song_path)
