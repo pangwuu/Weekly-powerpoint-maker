@@ -39,9 +39,10 @@ def create_new_powerpoint():
 
     # Format the date as dd_mm_yy
     formatted_date = selected_date.strftime("%d_%m_%y")
-    source_file = "/Users/johnnywu/Desktop/Weekly powerpoint maker/Slides/Template dark.pptx"
+    slides_folder = os.path.dirname(__file__)
+    source_file = f"{slides_folder}/../Slides/Template dark.pptx"
 
-    target_file = f"/Users/johnnywu/Desktop/Weekly powerpoint maker/Slides/{formatted_date}.pptx"
+    target_file = f"{slides_folder}/../Slides/{formatted_date}.pptx"
 
     if os.path.exists(target_file):
         overwrite = input(f"The file {target_file} already exists. Do you want to overwrite it? (y/n): ").strip().lower()
