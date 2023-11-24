@@ -1,4 +1,4 @@
-import os, subprocess, lyricsgenius, shutil, re, webbrowser
+import os, lyricsgenius, shutil, re, webbrowser
 import ccli
 import pyperclip
 import utilities
