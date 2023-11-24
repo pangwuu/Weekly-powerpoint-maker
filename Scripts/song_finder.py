@@ -1,6 +1,7 @@
 import os, subprocess, lyricsgenius, shutil, re, webbrowser
 import ccli
 import pyperclip
+import utilities
 
 # Path to the root directory containing "Songs" and "Complete Slides" directories
 root_directory = f"{os.path.dirname(__file__)}/../"
@@ -257,7 +258,7 @@ def find_and_open_songs():
                 if 0 <= idx < len(song_files):
                     song_name = song_files[idx - 1]
                     song_path = os.path.join(songs_directory, song_name)
-                    subprocess.run(["open", song_path])  # This is for macOS. Adjust for other platforms.
+                    utilities.open_file(song_path)
                     print(f"Opened PowerPoint: {os.path.basename(song_path)}")
 
                     # Get ccli data
