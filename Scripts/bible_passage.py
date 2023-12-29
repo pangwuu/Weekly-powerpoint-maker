@@ -24,6 +24,8 @@ def get_bible_verse(verse_reference):
     except:
         raise ConnectionError()
     
+    print(response)
+    
 
     soup = BeautifulSoup(response.content, 'html.parser')
     
@@ -123,5 +125,3 @@ def split_bible_text(bible_text, verses_per_part=5):
     parts = [verses[i:i + verses_per_part] for i in range(0, len(verses), verses_per_part)]
     
     return parts
-
-bible_passage()
