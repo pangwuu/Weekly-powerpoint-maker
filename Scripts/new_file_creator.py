@@ -1,7 +1,7 @@
 import shutil
 from datetime import datetime, timedelta
 import os
-import subprocess
+import utilities
 
 
 def calculate_nth_sunday(current_date, n):
@@ -53,6 +53,6 @@ def create_new_powerpoint():
         # Copy the file with the desired naming format
         shutil.copy(source_file, target_file)
         print(f"File copied successfully to {target_file}")
-        subprocess.run(["open", target_file])
+        utilities.open_file(target_file)
     except Exception as e:
         print(f"Error copying the file: {str(e)}")
