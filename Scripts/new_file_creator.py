@@ -48,6 +48,7 @@ def create_new_powerpoint():
         overwrite = input(f"The file {target_file} already exists. Do you want to overwrite it? (y/n): ").strip().lower()
         if overwrite != "y":
             print("File not copied.")
+            subprocess.run(["open", target_file])
             return
     try:
         # Copy the file with the desired naming format
