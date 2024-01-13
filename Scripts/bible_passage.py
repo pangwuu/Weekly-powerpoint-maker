@@ -124,4 +124,8 @@ def split_bible_text(bible_text, verses_per_part=5):
     verses = bible_text.split('\n')
     parts = [verses[i:i + verses_per_part] for i in range(0, len(verses), verses_per_part)]
     
+<<<<<<< Updated upstream
     return parts
+=======
+    return parts
+>>>>>>> Stashed changes

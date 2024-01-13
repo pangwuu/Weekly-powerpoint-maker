@@ -2,9 +2,14 @@ import csv, pyperclip
 import random
 import os
 
+
 def find_ccli_info(song_name):
     song_name = song_name.replace(".pptx", "")
+<<<<<<< Updated upstream
     csv_file = f"{os.path.dirname(__file__)}/../CCLI/CCLI.csv"
+=======
+    csv_file = "/Weekly powerpoint maker/CCLI/CCLI.csv"
+>>>>>>> Stashed changes
     with open(csv_file, newline='') as csvfile:
         reader = csv.reader(csvfile)  # Pass the opened file, not the file path
         next(reader)  # Skip the header row
@@ -15,7 +20,7 @@ def find_ccli_info(song_name):
             if song_name.lower() in csv_song_name.lower():
                 pyperclip.copy(f"CCLI: {ccli_description}\n{ccli_number}")
                 return f"CCLI: {ccli_description}\n{ccli_number}", True
-    
+
     ccli_number = random.randint(0, 1000000)
     pyperclip.copy(f"CCLI license number\n{ccli_number}")
     return f"CCLI license number\n{ccli_number}", False
@@ -29,4 +34,3 @@ def find_ccli_info(song_name):
 #     print(f"CCLI Number for '{found_song_name}': {ccli_number}")
 # else:
 #     print(f"Song containing '{user_input}' not found in the CSV file.")
-

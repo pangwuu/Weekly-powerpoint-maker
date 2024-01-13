@@ -12,30 +12,35 @@ def calculate_nth_sunday(current_date, n):
 
 
 def create_new_powerpoint():
-    # Get the current date
-    current_date = datetime.today()
 
-    # Calculate the next Sunday's date
+    while True:
+        # Get the current date
+        current_date = datetime.today()
 
-    current_date = datetime.today()
+        # Calculate the next Sunday's date
 
-    # Calculate and display the first 5 Sundays
-    for n in range(1, 6):
-        next_nth_sunday = calculate_nth_sunday(current_date, n)
-        print(f"{n}. {next_nth_sunday.strftime('%Y-%m-%d')}")
+        current_date = datetime.today()
 
-    # Allow the user to select a Sunday
-    user_input = input("Enter the number (1-5) to select a Sunday: ")
+        # Calculate and display the first 5 Sundays
+        for n in range(1, 6):
+            next_nth_sunday = calculate_nth_sunday(current_date, n)
+            print(f"{n}. {next_nth_sunday.strftime('%Y-%m-%d')}")
 
-    try:
-        selected_sunday = int(user_input)
-        if 1 <= selected_sunday <= 5:
-            selected_date = calculate_nth_sunday(current_date, selected_sunday)
-            print(f"You selected: {selected_date.strftime('%Y-%m-%d')}")
-        else:
+        # Allow the user to select a Sunday
+        user_input = input("Enter the number (1-5) to select a Sunday: ")
+
+        try:
+            selected_sunday = int(user_input)
+            if 1 <= selected_sunday <= 5:
+                selected_date = calculate_nth_sunday(current_date, selected_sunday)
+                print(f"You selected: {selected_date.strftime('%Y-%m-%d')}")
+                break
+            else:
+                print("Invalid input. Please enter a number from 1 to 5.")
+                continue
+        except ValueError:
             print("Invalid input. Please enter a number from 1 to 5.")
-    except ValueError:
-        print("Invalid input. Please enter a number from 1 to 5.")
+            continue
 
     # Format the date as dd_mm_yy
     formatted_date = selected_date.strftime("%d_%m_%y")
