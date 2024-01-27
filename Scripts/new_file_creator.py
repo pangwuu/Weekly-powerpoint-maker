@@ -2,6 +2,7 @@ import shutil
 from datetime import datetime, timedelta
 import os
 import utilities
+import subprocess
 
 
 def calculate_nth_sunday(current_date, n):

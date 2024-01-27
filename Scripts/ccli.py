@@ -5,11 +5,7 @@ import os
 
 def find_ccli_info(song_name):
     song_name = song_name.replace(".pptx", "")
-<<<<<<< Updated upstream
     csv_file = f"{os.path.dirname(__file__)}/../CCLI/CCLI.csv"
-=======
-    csv_file = "/Weekly powerpoint maker/CCLI/CCLI.csv"
->>>>>>> Stashed changes
     with open(csv_file, newline='') as csvfile:
         reader = csv.reader(csvfile)  # Pass the opened file, not the file path
         next(reader)  # Skip the header row

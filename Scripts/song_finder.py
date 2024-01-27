@@ -114,9 +114,9 @@ def fetch_lyrics(song_name, artist):
                 return ""
             
             # # Confirm the output directory and create it if it does not exist
-            # output_directory = f"{root_directory}/Lyrics text files/"
-            # if not os.path.exists(output_directory):
-            #     os.makedirs(output_directory)
+            output_directory = f"{root_directory}/Lyrics text files/"
+            if not os.path.exists(output_directory):
+                os.makedirs(output_directory)
         
 
             # Copy the template PowerPoint, and create a new one that has the song name.
@@ -203,7 +203,7 @@ def find_and_open_songs():
                     file_path = os.path.join(root, file)
                     unique_song_files.add(file_path)
 
-        # Find indices of matching song filesCCLI license number
+        # Find indices of matching song files CCLI license number
         matching_indices = [idx for idx, song_file in enumerate(unique_song_files) if search_song_name.lower() in os.path.basename(song_file).lower()]
 
         print()
