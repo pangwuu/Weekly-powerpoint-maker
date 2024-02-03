@@ -1,6 +1,5 @@
 import bible_passage, Custom_Running_Order, new_file_creator, song_finder
 
-
 def main():
     # Create new PowerPoint based on mode
     new_file_creator.create_new_powerpoint()
