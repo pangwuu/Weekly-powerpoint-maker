@@ -1,11 +1,15 @@
 # These are the direct package dependencies
 beautifulsoup4==4.12.2
 lyricsgenius==3.0.1
+meaningless==1.0.0
 pyperclip==1.8.2
 requests==2.31.0
 # These are the transitive package dependencies from the direct dependencies
 certifi==2023.11.17
 charset-normalizer==3.3.2
 idna==3.4
+ruamel.yaml==0.18.5
+ruamel.yaml.clib==0.2.8
 soupsieve==2.5
 urllib3==2.1.0
+xmltodict==0.13.0
